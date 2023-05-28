@@ -61,7 +61,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Importamos los models
 
-const { Streamer } = sequelize.models;
+const { Streamer, User } = sequelize.models;
 
 // Insertar las Relaciones (de momento no hay)
 
