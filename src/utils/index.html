@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Formulario de Scraping</title>
+    <!-- Incluir los archivos CSS de Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Formulario de Validacion</h1>
+      <!-- <form
+    id="formularioScraping"
+    method="post"
+    action="/process-file">
+    <div class="form-group">
+     <label for="asunto">Número de Expediente:</label>
+     <input
+      type="text"
+      class="form-control"
+      id="asunto"
+      name="asunto" />
+    </div>
+    <div class="form-group">
+     <label for="anio">Año:</label>
+     <input
+      type="text"
+      class="form-control"
+      id="año"
+      name="año" />
+    </div>
+    <div class="form-group">
+     <label for="nombre">Nombre:</label>
+     <input
+      type="text"
+      class="form-control"
+      id="nombre"
+      name="nombre"
+      required />
+    </div>
+    <div class="form-group text-center">
+     <input
+      type="submit"
+      class="btn btn-primary"
+      value="Enviar" />
+    </div>
+   </form> -->
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" />
+        <input type="hidden" name="filePath" id="filePathInput" />
+        <input type="submit" value="Upload" />
+      </form>
+
+      <div class="text-center" id="totaldatos"></div>
+      <div class="text-center" id="resultadoAlerta" style="display: none"></div>
+      <!-- <div class="text-center alert alert-warning" id="resultadoAlerta" style="display:none;"></div> -->
+    </div>
+
+    <!-- Incluir los archivos JavaScript de Bootstrap y scraping.js -->
+    <script>
+      document.getElementById('fileInput').addEventListener('change', function(event) {
+        var fileInput = event.target;
+        var filePathInput = document.getElementById('filePathInput');
+    
+        // Get the selected file object
+        var file = fileInput.files[0];
+    
+        // Set the value of the hidden input field to the file path
+        filePathInput.value = URL.createObjectURL(file);
+      });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
