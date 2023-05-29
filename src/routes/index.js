@@ -8,4 +8,6 @@ router.post('/upload', upload.single('file'), dailyReportController.readExcel)
 
 router.post('/login', userController.login)
 
+router.get('/users', dailyReportController.getStreamers)
+
 module.exports = router;

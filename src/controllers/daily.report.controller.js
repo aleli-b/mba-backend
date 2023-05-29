@@ -64,6 +64,24 @@ async function readExcel(req, res) {
   });
 };
 
+async function getStreamers(req,res){
+  try{
+    const page = req.query.page;
+    const limit = 50;
+    const offset = page * limit
+    const userDB = await Streamer.findAll({ limit: limit, offset: offset})
+    const totalUsers = await Streamer.count();
+    console.log('Total de usuarios:', totalUsers)
+    console.log(userDB);
+    res.send({users: userDB,
+    total: totalUsers})
+  } catch (error) {
+    console.log(error)
+    res.status(400).send({message: 'ha habido un error'})
+  }
+}
+
 module.exports = {
   readExcel,
+  getStreamers
 }
