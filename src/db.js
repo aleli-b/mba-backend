@@ -60,7 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Importamos los models
 
-const { DailyReport, User } = sequelize.models;
+const { DailyReport, WeeklyReport, User } = sequelize.models;
 
 // Insertar las Relaciones (de momento no hay)
 

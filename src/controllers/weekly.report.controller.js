@@ -64,7 +64,7 @@ async function readExcel(req, res) {
   });
 };
 
-async function getDailyReports(req,res){
+async function getWeeklyReports(req,res){
   try{
     const page = req.query.page;
     const limit = 50;
@@ -83,5 +83,5 @@ async function getDailyReports(req,res){
 
 module.exports = {
   readExcel,
-  getDailyReports
+  getWeeklyReports
 }
