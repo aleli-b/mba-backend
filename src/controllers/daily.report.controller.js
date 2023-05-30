@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 const path = require('path');
-const { Streamer } = require('../db')
+const { DailyReport } = require('../db')
 
 async function readExcel(req, res) {
   // Obtener la ruta del archivo
@@ -21,7 +21,7 @@ async function readExcel(req, res) {
     const outputer = JSON.parse(output)
     console.log('estoy entrando')
     for (const obj of outputer) {
-      Streamer.findOrCreate({
+      DailyReport.findOrCreate({
         where: {
           id: obj['id'],
           group_name: obj['group_name'],
@@ -64,13 +64,13 @@ async function readExcel(req, res) {
   });
 };
 
-async function getStreamers(req,res){
+async function getdailyReports(req,res){
   try{
     const page = req.query.page;
     const limit = 50;
     const offset = page * limit
-    const userDB = await Streamer.findAll({ limit: limit, offset: offset})
-    const totalUsers = await Streamer.count();
+    const userDB = await DailyReport.findAll({ limit: limit, offset: offset})
+    const totalUsers = await DailyReport.count();
     console.log('Total de usuarios:', totalUsers)
     console.log(userDB);
     res.send({users: userDB,
@@ -83,5 +83,5 @@ async function getStreamers(req,res){
 
 module.exports = {
   readExcel,
-  getStreamers
+  getdailyReports
 }

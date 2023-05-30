@@ -1,5 +1,5 @@
 require ('dotenv').config({path:'./.env'});
-const { Streamer } = require('../db')
+const { DailyReport } = require('../db')
 const { User } = require('../db')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

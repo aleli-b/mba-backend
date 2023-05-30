@@ -23,8 +23,7 @@ let sequelize =
      },
      dialectOptions: {
       ssl: {
-       require: true,
-       // Ref.: https://github.com/brianc/node-postgres/issues/2009
+       require: true,       
        rejectUnauthorized: false,
       },
       keepAlive: true,
@@ -61,7 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Importamos los models
 
-const { Streamer, User } = sequelize.models;
+const { DailyReport, User } = sequelize.models;
 
 // Insertar las Relaciones (de momento no hay)
 
