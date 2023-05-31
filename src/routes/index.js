@@ -7,6 +7,7 @@ const router = Router();
 router.post('/upload', upload.single('file'), dailyReportController.readExcel)
 
 router.post('/login', userController.login)
+// router.post('/login', userController.addUsers)
 
 router.get('/users', dailyReportController.getDailyReports)
 

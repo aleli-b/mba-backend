@@ -1,21 +1,30 @@
 import pandas as pd
 import json
+import re
 
-# Path to the input Excel file
+# Path to the Excel file
 input_file_path = "C:\\Users\\USUARIO\\Desktop\\SQL\\src\\routes\\Libro1 10 al 16-04.xlsx"
 
-# Path to save the JSON file
-output_file_path = 'test.json'
-
-# Read the Excel file into a pandas DataFrame
+# Read the Excel file into a DataFrame
 data_frame = pd.read_excel(input_file_path)
 
-# Perform any necessary transformations or data processing on the DataFrame
-# For example, you can convert the DataFrame to a JSON string
-json_data = data_frame.to_json(orient='records')
+# Remove newlines from cell values using regular expression
+data_frame = data_frame.replace({re.compile(r"\r|\n"): " "}, regex=True)
 
-# Save the JSON data to the output file
-with open(output_file_path, 'w') as file:
-    file.write(json_data)
+# Remove newlines from column names
+data_frame.columns = data_frame.columns.str.replace(r"\r|\n", " ")
 
-print('File converted to JSON and saved successfully.')
+# Convert the DataFrame to a JSON string
+json_string = data_frame.to_json(orient="records", force_ascii=False)
+
+# Convert the JSON string back to a list of dictionaries
+data = json.loads(json_string)
+
+# Path to save the modified JSON file
+output_file_path = "modified_data.json"
+
+# Write the modified JSON to a file
+with open(output_file_path, 'w', encoding='utf-8') as json_file:
+    json.dump(data, json_file, ensure_ascii=False, indent=4)
+
+print("Modified JSON file has been created.")
