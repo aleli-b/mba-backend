@@ -17,39 +17,42 @@ async function readExcel(req, res) {
     output += data.toString()
     // return res.send('Archivo subido y procesado correctamente.');
   });
-  pythonProcess.stdout.on('end', () => {
+  pythonProcess.stdout.on('end', async () => {
     const outputer = JSON.parse(output)
     console.log('estoy entrando')
+
     for (const obj of outputer) {
-      DailyReport.findOrCreate({
-        where: {
-          id: obj['id'],
-          group_name: obj['group_name'],
-          user_name: obj['user_name'],
-          is_have_story: obj['is_have_story'],
-          "gift coins": obj['gift coins'],
-          host_wall_coins: obj['host_wall_coins'],
-          friend_video_coins: obj['friend_video_coins'],
-          'task coins': obj['task coins'],
-          box_coins: obj['box_coins'],
-          'total coins-Apr 11th': obj['total coins-Apr 11th'],
-          group_time: obj['group_time'],
-          match_count: obj['match_count'],
-          match_times_duration: obj['match_times_duration'],
-          kyc_pass: obj['kyc_pass'],
-          video_status: obj['video_status'],
-          category: obj['category'],
-          'avg_friend_call_video_time-30days': obj['avg_friend_call_video_time-30days'],
-          bank_country_ab: obj['bank_country_ab'],
-          long_call_ratio: obj['long_call_ratio'],
-          'total coins-Apr 10th-Apr 11th': obj['total coins-Apr 10th-Apr 11th']
+      const dateValue = {};
+      const fieldsToUpdate = {};
+
+      Object.entries(obj).forEach(([key, value]) => {
+        if (key.startsWith('total coins-')) {
+          const date = key.substring('total coins-'.length);
+          dateValue[date] = value;
+        } else {
+          fieldsToUpdate[key] = value;
         }
-      })
+      });
+
+      const existingDailyReport = await DailyReport.findOne({ where: { id: obj.id } });
+
+      if (existingDailyReport) {
+        // Update the existing record
+        await existingDailyReport.update(fieldsToUpdate);
+
+        if (dateValue) {
+          existingDailyReport.date_value = { ...existingDailyReport.date_value, ...dateValue };
+          await existingDailyReport.save();
+        }
+      } else {
+        // Create a new record
+        const recordData = { ...fieldsToUpdate, date_value: dateValue };
+        await DailyReport.create(recordData);
+      }
     }
-    console.log('estoy saliendo')
-    res.send('Epic win!')
+
+    res.status(200).json({ message: 'Data processed successfully.' });
   });
-  
 
   // Manejar los errores del script de Python
   pythonProcess.stderr.on('data', (data) => {
@@ -64,20 +67,22 @@ async function readExcel(req, res) {
   });
 };
 
-async function getDailyReports(req,res){
-  try{
+async function getDailyReports(req, res) {
+  try {
     const page = req.query.page;
     const limit = 50;
     const offset = page * limit
-    const userDB = await DailyReport.findAll({ limit: limit, offset: offset})
+    const userDB = await DailyReport.findAll({ limit: limit, offset: offset })
     const totalUsers = await DailyReport.count();
     console.log('Total de usuarios:', totalUsers)
     console.log(userDB);
-    res.send({users: userDB,
-    total: totalUsers})
+    res.send({
+      users: userDB,
+      total: totalUsers
+    })
   } catch (error) {
     console.log(error)
-    res.status(400).send({message: 'ha habido un error'})
+    res.status(400).send({ message: 'ha habido un error' })
   }
 }
 

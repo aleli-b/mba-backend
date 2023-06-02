@@ -9,6 +9,10 @@ module.exports = (sequelize) => {
                 primaryKey: true,
                 allowNull: false,
             },
+            date_value: {
+                type: DataTypes.JSONB, // Use JSONB data type to store key-value pairs
+                allowNull: false,
+              },
             group_name: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -43,11 +47,11 @@ module.exports = (sequelize) => {
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
-            'total coins-Apr 11th': {
-                type: DataTypes.FLOAT,
-                allowNull: false,
-                field: 'total_coins_Apr_11th',
-            },
+            // 'total coins-Apr 11th': {
+            //     type: DataTypes.FLOAT,
+            //     allowNull: false,
+            //     field: 'total_coins_Apr_11th',
+            // },
             group_time: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -74,22 +78,30 @@ module.exports = (sequelize) => {
             },
             'avg_friend_call_video_time-30days': {
                 type: DataTypes.FLOAT,
-                allowNull: false,
+                allowNull: true,
+                field: 'avg_friend_call_video_time_30days'
+            },
+            'avg_friend_call_video_time': {
+                type: DataTypes.FLOAT,
+                allowNull: true,
                 field: 'avg_friend_call_video_time_30days'
             },
             bank_country_ab: {
-                type: DataTypes.FLOAT,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             long_call_ratio: {
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
-            'total coins-Apr 10th-Apr 11th': {
-                type: DataTypes.FLOAT,
-                allowNull: false,
-                field: 'total_coins_Apr_10th_Apr_11th'
-            }
+            // 'total coins-Apr 10th-Apr 11th': {
+            //     type: DataTypes.FLOAT,
+            //     allowNull: false,
+            //     field: 'total_coins_Apr_10th_Apr_11th'
+            // }
+        },
+        {
+            underscored: true,
         }
     );
 };

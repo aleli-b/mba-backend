@@ -3,7 +3,8 @@ import json
 import re
 
 # Path to the Excel file
-input_file_path = "C:\\Users\\USUARIO\\Desktop\\SQL\\src\\routes\\Libro1 10 al 16-04.xlsx"
+# input_file_path = "C:\\Users\\USUARIO\\Desktop\\SQL\\src\\routes\\Libro1 10 al 16-04.xlsx"
+input_file_path = "C:\\Users\\USUARIO\\Desktop\\SQL\\src\\routes\\MB-AR-Daily Report-Apr 11th.xlsx"
 
 # Read the Excel file into a DataFrame
 data_frame = pd.read_excel(input_file_path)
