@@ -46,7 +46,7 @@ async function readExcel(req, res) {
         }
       })
     }
-    console.log('estoy saliendo')
+    console.log('Estoy saliendo')
     res.send('Epic win!')
   });
   
