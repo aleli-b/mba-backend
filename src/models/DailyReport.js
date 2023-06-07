@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
                 allowNull: false,
             },
             date_value: {
-                type: DataTypes.JSONB, // Use JSONB data type to store key-value pairs
+                type: DataTypes.JSONB, 
                 allowNull: false,
               },
             group_name: {
@@ -25,25 +25,25 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            'gift coins': {
+            'gift coins': { //IMPORTANTE 
                 type: DataTypes.FLOAT,
                 allowNull: false,
                 field: 'gift_coins'
             },
-            host_wall_coins: {
+            host_wall_coins: { //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
-            friend_video_coins: {
+            friend_video_coins: { //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
-            'task coins': {
+            'task coins': { //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: false,
                 field:'task_coins'
             },
-            box_coins: {
+            box_coins: { //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
@@ -56,11 +56,11 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            match_count: {
+            match_count: { //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
-            match_times_duration: {
+            match_times_duration: { //?
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
@@ -72,25 +72,25 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            category: {
+            category: { //IMPORTANTE
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            'avg_friend_call_video_time-30days': {
+            'avg_friend_call_video_time-30days': { //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: true,
                 field: 'avg_friend_call_video_time_30days'
             },
-            'avg_friend_call_video_time': {
+            'avg_friend_call_video_time': {  //IMPORTANTE
                 type: DataTypes.FLOAT,
                 allowNull: true,
                 field: 'avg_friend_call_video_time_30days'
             },
             bank_country_ab: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
-            long_call_ratio: {
+            long_call_ratio: { //?
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
