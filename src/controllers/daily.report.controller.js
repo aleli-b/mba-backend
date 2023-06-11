@@ -19,39 +19,34 @@ async function readExcel(req, res) {
   });
   pythonProcess.stdout.on('end', async () => {
     const outputer = JSON.parse(output)
-    console.log('estoy entrando')
-
-    for (const obj of outputer) {
-      const dateValue = {};
-      const fieldsToUpdate = {};
-
-      Object.entries(obj).forEach(([key, value]) => {
-        if (key.startsWith('total coins-')) {
-          const date = key.substring('total coins-'.length);
-          dateValue[date] = value;
-        } else {
-          fieldsToUpdate[key] = value;
-        }
-      });
-
-      const existingDailyReport = await DailyReport.findOne({ where: { id: obj.id } });
-
-      if (existingDailyReport) {
-        // Update the existing record
-        await existingDailyReport.update(fieldsToUpdate);
-
-        if (dateValue) {
-          existingDailyReport.date_value = { ...existingDailyReport.date_value, ...dateValue };
-          await existingDailyReport.save();
-        }
-      } else {
-        // Create a new record
+    try {
+      console.log('estoy entrando')
+  
+      for (const obj of outputer) {
+        const dateValue = {};
+        const fieldsToUpdate = {};
+      
+        Object.entries(obj).forEach(([key, value]) => {
+          if (key.startsWith('total coins-')) {
+            const date = key.substring('total coins-'.length);
+            dateValue[date] = value;
+          } else {
+            fieldsToUpdate[key] = value;
+          }
+        });
+      
         const recordData = { ...fieldsToUpdate, date_value: dateValue };
+      
+        // Create a new record with a unique group_name
         await DailyReport.create(recordData);
       }
+      res.send('lol')
+    } catch (error) {
+      console.log(error)
+      res.send('Hubo un error')
     }
 
-    res.status(200).json({ message: 'Data processed successfully.' });
+    // res.status(200).json({ message: 'Data processed successfully.' });
   });
 
   // Manejar los errores del script de Python

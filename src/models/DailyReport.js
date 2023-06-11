@@ -4,9 +4,14 @@ module.exports = (sequelize) => {
     sequelize.define(
         'dailyReport',
         {
-            id: {
-                type: DataTypes.FLOAT,
+            db_id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
                 primaryKey: true,
+                allowNull: false,
+            },
+            id: {
+                type: DataTypes.BIGINT,                
                 allowNull: false,
             },
             date_value: {
